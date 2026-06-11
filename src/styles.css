@@ -1,0 +1,165 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-brass: var(--brass);
+  --color-deep: var(--deep);
+  --color-sand: var(--sand);
+  --color-wood: var(--wood);
+  --color-hygiene: var(--hygiene);
+
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
+}
+
+:root {
+  /* Brand pulled from the room: driftwood, smoked navy and fish pink */
+  --background: oklch(0.965 0.009 69); /* warm off-white */
+  --foreground: oklch(0.2 0.045 250); /* smoked navy */
+  --deep: oklch(0.2 0.045 250);
+  --sand: oklch(0.88 0.034 68); /* pale driftwood wash */
+  --wood: oklch(0.66 0.055 64); /* weathered timber */
+  --brass: oklch(0.69 0.115 32); /* fish pink / coral */
+  --hygiene: oklch(0.48 0.15 147); /* Food hygiene green */
+
+  --card: oklch(1 0 0);
+  --card-foreground: var(--foreground);
+  --popover: oklch(1 0 0);
+  --popover-foreground: var(--foreground);
+
+  --primary: oklch(0.22 0.04 255);
+  --primary-foreground: oklch(0.97 0.012 69);
+  --secondary: var(--sand);
+  --secondary-foreground: var(--foreground);
+  --muted: oklch(0.9 0.024 67);
+  --muted-foreground: oklch(0.45 0.025 255);
+  --accent: var(--brass);
+  --accent-foreground: oklch(0.99 0 0);
+
+  --destructive: oklch(0.55 0.22 25);
+  --destructive-foreground: oklch(0.99 0 0);
+
+  --border: oklch(0.8 0.026 66);
+  --input: oklch(0.8 0.026 66);
+  --ring: var(--brass);
+
+  --radius: 4px;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-body);
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    letter-spacing: 0;
+    color: var(--deep);
+  }
+  ::selection {
+    background: var(--brass);
+    color: var(--deep);
+  }
+}
+
+@layer components {
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--brass);
+  }
+  .rule {
+    height: 1px;
+    width: 48px;
+    background: var(--brass);
+  }
+  .wood-panel {
+    background:
+      linear-gradient(135deg, color-mix(in oklch, var(--wood) 28%, transparent), transparent 38%),
+      linear-gradient(90deg, color-mix(in oklch, var(--deep) 5%, transparent), transparent 52%),
+      var(--sand);
+    border-color: color-mix(in oklch, var(--wood) 45%, var(--border));
+  }
+  .pink-rule {
+    height: 2px;
+    width: 64px;
+    background: var(--brass);
+  }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--deep);
+    color: var(--primary-foreground);
+    padding: 0.85rem 1.5rem;
+    font-size: 0.82rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+  .btn-primary:hover {
+    background: var(--brass);
+    color: var(--deep);
+  }
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid var(--deep);
+    color: var(--deep);
+    padding: 0.85rem 1.5rem;
+    font-size: 0.82rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+  .btn-ghost:hover {
+    background: var(--deep);
+    color: var(--primary-foreground);
+  }
+}
