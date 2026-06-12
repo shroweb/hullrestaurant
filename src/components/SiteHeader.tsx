@@ -13,16 +13,16 @@ export function SiteHeader() {
         </Link>
 
         <nav className="hidden items-center gap-8 text-sm md:flex">
-          <Link to="/" className="hover:text-brass [&.active]:text-brass">
+          <Link to="/" className="nav-link hover:text-brass [&.active]:text-brass">
             Restaurant
           </Link>
-          <Link to="/menu" className="hover:text-brass [&.active]:text-brass">
+          <Link to="/menu" className="nav-link hover:text-brass [&.active]:text-brass">
             Menu
           </Link>
-          <Link to="/about" className="hover:text-brass [&.active]:text-brass">
+          <Link to="/about" className="nav-link hover:text-brass [&.active]:text-brass">
             About
           </Link>
-          <Link to="/contact" className="hover:text-brass [&.active]:text-brass">
+          <Link to="/contact" className="nav-link hover:text-brass [&.active]:text-brass">
             Visit & Book
           </Link>
         </nav>

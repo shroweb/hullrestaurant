@@ -30,6 +30,7 @@
   --color-ring: var(--ring);
   --color-brass: var(--brass);
   --color-deep: var(--deep);
+  --color-ocean: var(--ocean);
   --color-sand: var(--sand);
   --color-wood: var(--wood);
   --color-hygiene: var(--hygiene);
@@ -40,14 +41,15 @@
 }
 
 :root {
-  /* Brand pulled from the room: driftwood, smoked navy and fish pink */
-  --background: oklch(0.965 0.009 69); /* warm off-white */
-  --foreground: oklch(0.2 0.045 250); /* smoked navy */
+  /* Brand: driftwood, smoked navy, fish pink */
+  --background: oklch(0.965 0.009 69);     /* warm off-white / bleached linen */
+  --foreground: oklch(0.2 0.045 250);      /* smoked navy */
   --deep: oklch(0.2 0.045 250);
-  --sand: oklch(0.88 0.034 68); /* pale driftwood wash */
-  --wood: oklch(0.66 0.055 64); /* weathered timber */
-  --brass: oklch(0.69 0.115 32); /* fish pink / coral */
-  --hygiene: oklch(0.48 0.15 147); /* Food hygiene green */
+  --ocean: oklch(0.13 0.07 252);           /* deep-water navy, darker than deep */
+  --sand: oklch(0.88 0.034 68);            /* pale driftwood wash */
+  --wood: oklch(0.66 0.055 64);            /* weathered timber */
+  --brass: oklch(0.69 0.115 32);           /* coral / fish pink */
+  --hygiene: oklch(0.48 0.15 147);
 
   --card: oklch(1 0 0);
   --card-foreground: var(--foreground);
@@ -104,6 +106,7 @@
 }
 
 @layer components {
+  /* ── Eyebrow label ── */
   .eyebrow {
     font-family: var(--font-mono);
     font-size: 11px;
@@ -111,23 +114,78 @@
     text-transform: uppercase;
     color: var(--brass);
   }
-  .rule {
-    height: 1px;
-    width: 48px;
-    background: var(--brass);
+
+  /* ── Italic display accent — wraps a word in italic Fraunces ── */
+  .italic-accent {
+    font-style: italic;
+    font-weight: 400;
   }
+
+  /* ── Rope rule — twisted dashed divider in brass ── */
+  .rope-rule {
+    border: none;
+    height: 2px;
+    background: repeating-linear-gradient(
+      90deg,
+      color-mix(in oklch, var(--brass) 55%, transparent) 0px,
+      color-mix(in oklch, var(--brass) 55%, transparent) 6px,
+      transparent 6px,
+      transparent 10px,
+      color-mix(in oklch, var(--brass) 30%, transparent) 10px,
+      color-mix(in oklch, var(--brass) 30%, transparent) 14px,
+      transparent 14px,
+      transparent 20px
+    );
+  }
+
+  /* ── Wood panel with grain noise ── */
   .wood-panel {
+    position: relative;
+    isolation: isolate;
     background:
       linear-gradient(135deg, color-mix(in oklch, var(--wood) 28%, transparent), transparent 38%),
       linear-gradient(90deg, color-mix(in oklch, var(--deep) 5%, transparent), transparent 52%),
       var(--sand);
     border-color: color-mix(in oklch, var(--wood) 45%, var(--border));
   }
-  .pink-rule {
-    height: 2px;
-    width: 64px;
-    background: var(--brass);
+  /* SVG turbulence grain — rendered by the browser, not a raster image */
+  .wood-panel::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.55;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85 0.18' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23g)' opacity='0.09'/%3E%3C/svg%3E");
+    background-size: 250px 250px;
   }
+  .wood-panel > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── Nav link — animated underline ── */
+  .nav-link {
+    position: relative;
+    padding-bottom: 2px;
+  }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--brass);
+    transition: width 0.22s ease;
+  }
+  .nav-link:hover::after,
+  .nav-link.active::after {
+    width: 100%;
+  }
+
+  /* ── Buttons ── */
   .btn-primary {
     display: inline-flex;
     align-items: center;
@@ -161,5 +219,16 @@
   .btn-ghost:hover {
     background: var(--deep);
     color: var(--primary-foreground);
+  }
+
+  .rule {
+    height: 1px;
+    width: 48px;
+    background: var(--brass);
+  }
+  .pink-rule {
+    height: 2px;
+    width: 64px;
+    background: var(--brass);
   }
 }

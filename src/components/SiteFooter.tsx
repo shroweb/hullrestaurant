@@ -40,8 +40,8 @@ export function SiteFooter() {
           <div>
             <h3 className="font-display text-2xl text-primary-foreground">Humber Fish Co.</h3>
             <p className="mt-2 text-sm leading-relaxed text-primary-foreground/60">
-              Independent seafood restaurant on Hull's Humber Street.
-              Open Wednesday to Sunday.
+              James and Paula Stockdale have run Humber Fish Co. since they opened on the warehouse
+              row. The shellfish comes in daily — what's on the board depends on the boats.
             </p>
           </div>
 

@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
+  Anchor,
   Award,
   CalendarDays,
   ClipboardCheck,
@@ -93,37 +94,65 @@ const drinks = [
   ["No-fuss pints", "Cold beer and simple drinks for the bar seats."],
 ];
 
+/* Inline SVG grain overlay — place inside any relative-positioned section */
+function GrainOverlay({ id }: { id: string }) {
+  return (
+    <svg
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.04]"
+      style={{ mixBlendMode: "overlay" }}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <filter id={id}>
+        <feTurbulence type="fractalNoise" baseFrequency="0.72" numOctaves="4" stitchTiles="stitch" />
+        <feColorMatrix type="saturate" values="0" />
+      </filter>
+      <rect width="100%" height="100%" filter={`url(#${id})`} />
+    </svg>
+  );
+}
 
 function Home() {
   return (
     <div className="min-h-screen bg-background">
       <SiteHeader />
 
-      <section className="relative h-[calc(100vh-56px)] min-h-[560px] overflow-hidden border-b border-border" id="top">
+      {/* ── Hero — 85 vh, off-centre crop, grain ── */}
+      <section
+        className="relative h-[85vh] min-h-[560px] overflow-hidden border-b border-border"
+        id="top"
+      >
         <img
           src={restaurantPhotos.originalSeafood}
           alt="Fresh fish, crab, prawns, shellfish and seafood"
-          className="absolute inset-0 h-full w-full object-cover object-left"
+          className="absolute inset-0 h-full w-full object-cover object-[70%_center]"
           loading="eager"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-black/50" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30" />
+        <GrainOverlay id="grain-hero" />
 
         <div className="relative flex h-full flex-col justify-center px-5 md:px-12">
           <p className="eyebrow !text-white/70">71-72 Humber Street · Hull Marina</p>
           <h1 className="mt-4 max-w-[14ch] font-display text-5xl leading-[1.02] text-white sm:text-6xl md:text-8xl">
-            Seafood and shellfish on Humber Street.
+            Seafood <em className="italic-accent !text-brass/90">and</em> shellfish on Humber Street.
           </h1>
           <p className="mt-6 max-w-lg text-base leading-relaxed text-white/80">
             An independent restaurant run by James and Paula Stockdale. Locally caught shellfish,
             whole fish, Scottish halibut and oysters from the east coast.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <a href="tel:01482326136" className="inline-flex items-center gap-2 bg-brass px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-deep hover:bg-brass/90">
+            <a
+              href="tel:01482326136"
+              className="inline-flex items-center gap-2 bg-brass px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-deep hover:bg-brass/90"
+            >
               <PhoneCall className="h-4 w-4" aria-hidden="true" />
               Book by phone
             </a>
-            <Link to="/menu" className="inline-flex items-center gap-2 border border-white/60 px-6 py-3 text-[11px] uppercase tracking-[0.16em] text-white hover:border-white hover:bg-white/10">
+            <Link
+              to="/menu"
+              className="inline-flex items-center gap-2 border border-white/60 px-6 py-3 text-[11px] uppercase tracking-[0.16em] text-white hover:border-white hover:bg-white/10"
+            >
               View menu
             </Link>
           </div>
@@ -133,7 +162,7 @@ function Home() {
         </div>
       </section>
 
-
+      {/* ── Highlights bar ── */}
       <section className="wood-panel border-b border-border">
         <div className="mx-auto grid max-w-7xl gap-4 px-5 py-6 md:grid-cols-3 md:px-8">
           {highlights.map(({ icon: Icon, label, title, detail }) => (
@@ -149,11 +178,15 @@ function Home() {
         </div>
       </section>
 
+      {/* ── The restaurant ── */}
       <section className="border-y border-border bg-card">
         <div className="mx-auto max-w-7xl px-5 py-16 md:px-8 md:py-24">
           <div className="grid gap-10 md:grid-cols-12 md:gap-16">
             <div className="md:col-span-4">
-              <p className="eyebrow">The restaurant</p>
+              <div className="flex items-center gap-2">
+                <Anchor className="h-4 w-4 text-brass opacity-60" aria-hidden="true" />
+                <p className="eyebrow">The restaurant</p>
+              </div>
               <h2 className="mt-4 font-display text-4xl leading-[1.08] md:text-5xl">
                 A small room, a short menu, a proper sense of place.
               </h2>
@@ -196,12 +229,13 @@ function Home() {
         </div>
       </section>
 
+      {/* ── Food on the table — rotated platter image ── */}
       <section className="border-y border-border bg-card" id="food">
         <div className="mx-auto grid max-w-7xl gap-10 px-5 py-14 md:grid-cols-12 md:px-8 md:py-18">
           <div className="md:col-span-4">
             <p className="eyebrow">Food on the table</p>
             <h2 className="mt-3 font-display text-4xl leading-[1.08] md:text-5xl">
-              Seafood platters, oysters and fresh fish.
+              Seafood platters, oysters <em className="italic-accent">and</em> fresh fish.
             </h2>
             <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
               Cold shellfish, oysters, prawns, mussels, fish and chips, and daily seafood from the
@@ -209,11 +243,11 @@ function Home() {
             </p>
           </div>
           <div className="grid gap-4 md:col-span-8 md:grid-cols-12">
-            <div className="md:col-span-5">
+            <div className="overflow-hidden md:col-span-5">
               <img
                 src={restaurantPhotos.seafoodPlatter}
                 alt="Humber Fish Co. seafood platter with lobster, prawns, oysters, mussels and bread"
-                className="aspect-[4/5] w-full object-cover"
+                className="aspect-[4/5] w-full scale-[1.03] rotate-[1.5deg] object-cover transition-transform duration-700 hover:rotate-0 hover:scale-[1.01]"
                 loading="lazy"
               />
             </div>
@@ -229,6 +263,7 @@ function Home() {
         </div>
       </section>
 
+      {/* ── Explore the menu ── */}
       <section className="mx-auto max-w-7xl px-5 py-16 md:px-8">
         <div className="grid gap-8 md:grid-cols-12">
           <div className="md:col-span-4">
@@ -252,17 +287,10 @@ function Home() {
         </div>
       </section>
 
+      {/* ── Specials board — flipped: text left, image right ── */}
       <section className="wood-panel border-y border-border">
         <div className="mx-auto grid max-w-7xl gap-8 px-5 py-14 md:grid-cols-12 md:px-8">
-          <div className="md:col-span-5">
-            <img
-              src={restaurantPhotos.foodCollage}
-              alt="Fresh fish, prawns, crab and shellfish"
-              className="aspect-[4/3] w-full object-cover"
-              loading="lazy"
-            />
-          </div>
-          <div className="md:col-span-6 md:col-start-7 md:self-center">
+          <div className="md:col-span-6 md:self-center">
             <p className="eyebrow">Specials board</p>
             <h2 className="mt-3 font-display text-4xl leading-[1.08] md:text-5xl">
               Ask what is on today.
@@ -275,20 +303,29 @@ function Home() {
               Ask today's board
             </a>
           </div>
+          <div className="md:col-span-5 md:col-start-8">
+            <img
+              src={restaurantPhotos.foodCollage}
+              alt="Fresh fish, prawns, crab and shellfish"
+              className="aspect-[4/3] w-full object-cover"
+              loading="lazy"
+            />
+          </div>
         </div>
       </section>
 
-      <section className="bg-deep text-primary-foreground">
+      {/* ── Service — deep ocean navy ── */}
+      <section className="bg-ocean text-primary-foreground">
         <div className="mx-auto grid max-w-7xl gap-10 px-5 py-16 md:grid-cols-12 md:px-8">
           <div className="md:col-span-4">
             <p className="eyebrow !text-brass">Service</p>
             <h2 className="mt-4 font-display text-4xl text-primary-foreground md:text-5xl">
-              Lunch, dinner and Sunday service.
+              Lunch, dinner <em className="italic-accent !text-brass/80">and</em> Sunday service.
             </h2>
           </div>
           <div className="grid gap-px bg-white/10 md:col-span-8 md:grid-cols-3">
             {diningMoments.map(([title, detail]) => (
-              <div key={title} className="bg-deep p-7">
+              <div key={title} className="bg-ocean p-7">
                 <CalendarDays className="h-5 w-5 text-brass" aria-hidden="true" />
                 <h3 className="mt-5 font-display text-2xl text-primary-foreground">{title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-primary-foreground/70">{detail}</p>
@@ -296,8 +333,23 @@ function Home() {
             ))}
           </div>
         </div>
+        {/* Tidal wave — ocean section dissolves into warm paper */}
+        <div className="overflow-hidden leading-[0]">
+          <svg
+            viewBox="0 0 1440 48"
+            preserveAspectRatio="none"
+            className="block w-full"
+            style={{ height: "48px" }}
+          >
+            <path
+              d="M0,0 C240,48 480,0 720,28 C960,48 1200,8 1440,24 L1440,48 L0,48 Z"
+              fill="var(--background)"
+            />
+          </svg>
+        </div>
       </section>
 
+      {/* ── Shellfish platters ── */}
       <section className="mx-auto max-w-7xl px-5 py-16 md:px-8">
         <div className="grid gap-4 md:grid-cols-12">
           <img
@@ -322,6 +374,7 @@ function Home() {
         </div>
       </section>
 
+      {/* ── Drinks ── */}
       <section className="border-y border-border bg-card">
         <div className="mx-auto grid max-w-7xl gap-8 px-5 py-14 md:grid-cols-12 md:px-8">
           <div className="md:col-span-4">
@@ -342,6 +395,7 @@ function Home() {
         </div>
       </section>
 
+      {/* ── Gift vouchers ── */}
       <section className="mx-auto max-w-7xl px-5 py-16 md:px-8" id="gifts">
         <div className="grid gap-4 md:grid-cols-3">
           <img
@@ -373,30 +427,30 @@ function Home() {
         </div>
       </section>
 
-      {/* Special occasions — standalone promotional banner */}
+      {/* ── Special occasions — centred print layout with rope rules ── */}
       <section className="wood-panel border-y border-border">
-        <div className="mx-auto max-w-7xl px-5 py-14 md:px-8 md:py-16">
-          <div className="grid gap-8 md:grid-cols-12 md:items-center">
-            <div className="md:col-span-7">
-              <p className="eyebrow">Special occasions</p>
-              <h2 className="mt-3 font-display text-4xl leading-[1.08] md:text-5xl">Sunday 21 June</h2>
-              <p className="mt-4 text-base leading-relaxed text-foreground/80">
-                Extended lunch from 12pm, serving the à la carte menu alongside chef's specials
-                board and cocktails. Book by phone.
-              </p>
-            </div>
-            <div className="md:col-span-3 md:col-start-10">
-              <a href="tel:01482326136" className="btn-primary w-full justify-center">
-                <PhoneCall className="h-4 w-4" aria-hidden="true" />
-                Call to book
-              </a>
-            </div>
+        <div className="mx-auto max-w-2xl px-5 py-14 text-center md:px-8 md:py-20">
+          <div className="flex items-center gap-4">
+            <div className="rope-rule flex-1" />
+            <p className="eyebrow shrink-0">Special occasions</p>
+            <div className="rope-rule flex-1" />
           </div>
+          <h2 className="mt-5 font-display text-4xl leading-[1.08] md:text-5xl">
+            Sunday 21 June
+          </h2>
+          <p className="mx-auto mt-4 max-w-sm text-base leading-relaxed text-foreground/80">
+            Extended lunch from 12pm, serving the à la carte menu alongside chef's specials board
+            and cocktails. Book by phone.
+          </p>
+          <a href="tel:01482326136" className="btn-primary mt-7 inline-flex">
+            <PhoneCall className="h-4 w-4" aria-hidden="true" />
+            Call to book — 01482 326136
+          </a>
         </div>
       </section>
 
-      {/* Opening times + hygiene rating together — both practical pre-visit info */}
-      <section className="border-t border-border bg-background">
+      {/* ── Opening times — dashed row dividers ── */}
+      <section className="bg-background" id="visit">
         <div className="mx-auto max-w-7xl px-5 py-16 md:px-8 md:py-20">
           <div className="grid gap-12 md:grid-cols-12 md:gap-16">
             <div className="md:col-span-5">
@@ -410,7 +464,7 @@ function Home() {
               </p>
             </div>
             <div className="md:col-span-6 md:col-start-7">
-              <dl className="divide-y divide-border border-y border-border">
+              <dl className="border-y border-border">
                 {[
                   ["Wednesday", "Open 12:00–21:30 · Food 12:00–14:00 / 17:00–19:30"],
                   ["Thursday", "Open 12:00–21:30 · Food 12:00–14:30 / 17:00–20:00"],
@@ -418,7 +472,10 @@ function Home() {
                   ["Saturday", "Open 12:00–22:30 · Food 12:00–14:30 / 16:30–20:30"],
                   ["Sunday", "Open 12:00–17:00 · Food 12:00–15:00"],
                 ].map(([day, time]) => (
-                  <div key={day} className="grid grid-cols-12 gap-4 py-4">
+                  <div
+                    key={day}
+                    className="grid grid-cols-12 gap-4 border-b border-dashed border-border py-4 last:border-b-0"
+                  >
                     <dt className="col-span-4 font-display text-lg md:col-span-3">{day}</dt>
                     <dd className="col-span-8 text-sm text-foreground/80 md:col-span-9">{time}</dd>
                   </div>
