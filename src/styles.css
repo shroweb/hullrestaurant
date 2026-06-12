@@ -121,6 +121,24 @@
     font-weight: 400;
   }
 
+  /* ── Basket weave border — woven horizontal/vertical stripe pattern ── */
+  .weave-rule {
+    height: 10px;
+    background-color: color-mix(in oklch, var(--wood) 18%, var(--sand));
+    background-image:
+      repeating-linear-gradient(
+        transparent 0px 3px,
+        color-mix(in oklch, var(--wood) 55%, transparent) 3px 5px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        transparent 0px 3px,
+        color-mix(in oklch, var(--wood) 55%, transparent) 3px 5px
+      );
+    background-size: 10px 10px;
+    background-position: 0 0, 5px 5px;
+  }
+
   /* ── Rope rule — twisted dashed divider in brass ── */
   .rope-rule {
     border: none;

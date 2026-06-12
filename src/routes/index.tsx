@@ -162,7 +162,7 @@ function Home() {
         </div>
       </section>
 
-      {/* ── Highlights bar ── */}
+{/* ── Highlights bar ── */}
       <section className="wood-panel border-b border-border">
         <div className="mx-auto grid max-w-7xl gap-4 px-5 py-6 md:grid-cols-3 md:px-8">
           {highlights.map(({ icon: Icon, label, title, detail }) => (
@@ -287,7 +287,7 @@ function Home() {
         </div>
       </section>
 
-      {/* ── Specials board — flipped: text left, image right ── */}
+{/* ── Specials board — flipped: text left, image right ── */}
       <section className="wood-panel border-y border-border">
         <div className="mx-auto grid max-w-7xl gap-8 px-5 py-14 md:grid-cols-12 md:px-8">
           <div className="md:col-span-6 md:self-center">
@@ -427,7 +427,7 @@ function Home() {
         </div>
       </section>
 
-      {/* ── Special occasions — centred print layout with rope rules ── */}
+{/* ── Special occasions — centred print layout with rope rules ── */}
       <section className="wood-panel border-y border-border">
         <div className="mx-auto max-w-2xl px-5 py-14 text-center md:px-8 md:py-20">
           <div className="flex items-center gap-4">

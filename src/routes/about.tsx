@@ -48,14 +48,20 @@ function About() {
       </section>
 
       <section className="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
-        <div className="grid gap-12 md:grid-cols-12 md:gap-16">
+        <div className="grid gap-12 md:grid-cols-12 md:gap-6">
           <img
             src={interior4.url}
             alt="A view of the dining room at Humber Fish Co., with marble-topped tables"
-            className="aspect-[4/5] w-full object-cover md:col-span-5"
+            className="aspect-[4/5] w-full object-cover md:col-span-4"
             loading="lazy"
           />
-          <div className="space-y-6 md:col-span-6 md:col-start-7 md:pt-8">
+          <img
+            src="https://impro.usercontent.one/appid/oneComWsb/domain/humberfishco.co.uk/media/humberfishco.co.uk/onewebmedia/Screenshot%202023-11-01%20at%2010.08.39.png?etag=%224f3e5-65422713%22&sourceContentType=image%2Fpng&ignoreAspectRatio&resize=1245%2B1282&extract=0%2B0%2B1230%2B1270"
+            alt="Inside Humber Fish Co. — nautical finds and driftwood on the walls"
+            className="aspect-[4/5] w-full object-cover md:col-span-3"
+            loading="lazy"
+          />
+          <div className="space-y-6 md:col-span-4 md:col-start-9 md:pt-8">
             <p className="text-base leading-relaxed text-foreground/85">
               The room is small on purpose. Reclaimed driftwood lines the walls. There's an eclectic
               mix of nautical objects, seafaring ornaments and quirky finds that have been collected
